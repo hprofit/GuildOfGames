@@ -25,8 +25,6 @@
 
     app.config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-
-            //$urlRouterProvider.when('/', '/dashboard');
             $urlRouterProvider.when('', '/');
 
             $stateProvider
