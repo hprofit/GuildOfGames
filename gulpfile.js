@@ -13,7 +13,7 @@ var PROJ_ROOT = '',
     LESS_ROOT = PROJ_ROOT + 'less',
     SCRIPTS_ROOT = PROJ_ROOT + 'src',
     TESTS_ROOT = PROJ_ROOT + 'tests/spec',
-    TEMPLATES_ROOT = PROJ_ROOT + 'views',
+    TEMPLATES_ROOT = PROJ_ROOT + 'templates',
     DIST_ROOT = PROJ_ROOT + 'dist';
 
 var styles = [
