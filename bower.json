@@ -1,0 +1,23 @@
+{
+  "name": "GuildOfGames",
+  "version": "1.0.0",
+  "homepage": "https://github.com/hprofit/GuildOfGames",
+  "authors": [
+    "holden_profit <holdenprofit@gmail.com>"
+  ],
+  "description": "Guild of Games for the ICC Hackathon",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [],
+  "license": "MIT",
+  "dependencies": {
+    "angular-bootstrap": "~0.13.4",
+    "angular-ui-router": "~0.2.15",
+    "angular": "~1.4.7",
+    "jquery": ">= 1.9.1",
+    "lodash": "~3.10.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.7"
+  }
+}
