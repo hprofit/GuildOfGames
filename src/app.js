@@ -6,7 +6,10 @@
         'ui.router',
 
         // Templates
-        'guildOfGames.templates'
+        'guildOfGames.templates',
+
+        // Services
+        'guildOfGames.services.userService'
 
         // Directives
 
@@ -18,8 +21,9 @@
         }
     ]);
 
-    app.controller('HomeController', ['$scope', '$state',
-        function ($scope, $state) {
+    app.controller('HomeController', ['$scope', '$state', 'ParseService',
+        function ($scope, $state, ParseService) {
+            console.log(ParseService);
         }
     ]);
 
