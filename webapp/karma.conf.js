@@ -2,9 +2,11 @@ module.exports = function (config) {
     var TEST_ROOT = 'tests/spec/',
         SCRIPT_ROOT = 'src/',
         DIST_ROOT = 'dist/',
-        BOWER_COMP_ROOT = 'bower_components/';
+        BOWER_COMP_ROOT = 'bower_components/',
+        NODE_MODULE_ROOT = 'node_modules/';
 
     config.set({
+        basePath: '',
         // testing framework to use (jasmine/mocha/qunit/...)
         frameworks: ['jasmine'],
 
@@ -16,6 +18,7 @@ module.exports = function (config) {
             BOWER_COMP_ROOT + 'angular-ui-router/release/angular-ui-router.js',
             BOWER_COMP_ROOT + 'angular-bootstrap/ui-bootstrap.js',
             BOWER_COMP_ROOT + 'lodash/lodash.js',
+            BOWER_COMP_ROOT + '/restangular/dist/restangular.js',
 
             DIST_ROOT + 'templates/guildOfGames-templates.js',
 

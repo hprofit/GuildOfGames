@@ -3,6 +3,7 @@ language: javascript
 sudo: false
 
 before_install:
+  - cd webapp
   - npm install
   - npm install bower
 
