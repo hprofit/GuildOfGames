@@ -1,3 +1,7 @@
+@theme-main: gray;
+
+
+// Media Queries
 @ipad-landscape: ~"only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape)";
 @ipad-portrait: ~"only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait)";
 @ipad-all: ~"only screen and (min-device-width: 768px) and (max-device-width: 1024px)";
@@ -34,3 +38,12 @@
   text-overflow: ellipsis;
 }
 
+.common-container {
+  padding: 30px;
+  //background-color:rgba(0,0,0,0.75);
+  border-radius: 25px;
+  //box-shadow: 0 0 20px black;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: space-around;
+}

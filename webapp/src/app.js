@@ -9,11 +9,12 @@
         'guildOfGames.templates',
 
         // Services
-        'guildOfGames.services.userService'
+        'guildOfGames.services.userService',
 
         // Directives
 
         // Controllers
+        'guildOfGames.controllers.user'
     ]);
 
     app.controller('HeaderController', ['$rootScope', '$scope', '$state',
@@ -23,22 +24,24 @@
 
     app.controller('HomeController', ['$scope', '$state', 'UserService', 'currentUser',
         function ($scope, $state, UserService, currentUser) {
-            console.log(currentUser);
+            if (!currentUser) {
+                $state.go('app.user.create')
+            }
         }
     ]);
 
-    app.config(['$stateProvider', '$urlRouterProvider', 'RestangularProvider',
-        function ($stateProvider, $urlRouterProvider, RestangularProvider) {
+    app.config(['$stateProvider', '$urlRouterProvider',
+        function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.when('', '/');
 
-            // Restangular global config
-            RestangularProvider.setBaseUrl('https://api.parse.com/1');
-
-            RestangularProvider.setDefaultHeaders({
-                "X-Parse-Application-Id": "VS6qVTDjXnCfXoME3OBRPzOYCsb4r3DlXNtwzYf2",
-                "X-Parse-REST-API-Key": "EVzQYQ7s4679CZNXwiU9d3kPmrxw1o8iiMQAZY6X",
-                "Content-Type": "application/json"
-            });
+            //// Restangular global config
+            //RestangularProvider.setBaseUrl('https://api.parse.com/1');
+            //
+            //RestangularProvider.setDefaultHeaders({
+            //    "X-Parse-Application-Id": "VS6qVTDjXnCfXoME3OBRPzOYCsb4r3DlXNtwzYf2",
+            //    "X-Parse-REST-API-Key": "EVzQYQ7s4679CZNXwiU9d3kPmrxw1o8iiMQAZY6X",
+            //    "Content-Type": "application/json"
+            //});
 
             $stateProvider
                 .state('app', {
@@ -58,7 +61,8 @@
                             controller: 'HomeController'
                         }
                     }
-                });
+                })
+                .state('app.user', {url: 'user/'});
         }
     ]);
 })(angular);

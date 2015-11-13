@@ -53,7 +53,9 @@ module.exports = function (config) {
         },
 
         // list of files / patterns to exclude
-        exclude: [],
+        exclude: [
+            SCRIPT_ROOT + 'app.js'
+        ],
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
