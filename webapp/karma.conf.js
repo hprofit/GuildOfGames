@@ -31,9 +31,9 @@ module.exports = function (config) {
             '**/directives/**/*.js': 'coverage',
             '**/controllers/**/*.js': 'coverage',
             '**/models/**/*.js': 'coverage',
-            '**/services/**/*.js': 'coverage'
+            '**/services/**/*.js': 'coverage',
             //'src/app.js': 'coverage'
-            //'exampleSvg.html': ['ng-html2js']
+            '**/templates/**/*.html': ['ng-html2js']
         },
 
         ngHtml2JsPreprocessor: {

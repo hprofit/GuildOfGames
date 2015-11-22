@@ -1,18 +1,56 @@
-<div>
-    Username *: <input type="username" ng-model="user.username" />
+<div class="user-create">
 
-    Password *: <input type="password" ng-model="user.password" />
+    <div class="user-create-form">
+        <h2 class="header">Sign Up!</h2>
+        <div class="user-info">
+            <label class="form-label">Username *:</label>
+            <input class="form-control"
+                   type="text" id="username"
+                   ng-model="user.username" />
+        </div>
 
-    Password Again *: <input type="password" ng-model="passwordMatch" />
+        <div class="user-info">
+            <label class="form-label">Password *:</label>
+            <input class="form-control"
+                   type="password" id="password"
+                   ng-model="user.password" />
+        </div>
 
-    First Name *: <input type="text" ng-model="user.firstName" />
+        <div class="user-info">
+            <label class="form-label">Password Again *:</label>
+            <input class="form-control"
+                   type="password" id="password-match"
+                   ng-model="passwordMatch" />
+        </div>
 
-    Last Name *: <input type="text" ng-model="user.lastName" />
+        <div class="user-info">
+            <label class="form-label">First Name *:</label>
+            <input class="form-control"
+                   type="text" id="firstName"
+                   ng-model="user.firstName" />
+        </div>
 
-    Email *: <input type="email" ng-model="user.email" />
+        <div class="user-info">
+            <label class="form-label">Last Name *:</label>
+            <input class="form-control"
+                   type="text" id="lastName"
+                   ng-model="user.lastName" />
+        </div>
 
-    Phone Number: <input type="telephone" ng-model="user.phone" />
+        <div class="user-info">
+            <label class="form-label">Email *:</label>
+            <input class="form-control"
+                   type="email" id="email"
+                   ng-model="user.email" />
+        </div>
 
+        <div class="user-info">
+            <label class="form-label">Phone Number:</label>
+            <input class="form-control"
+                   type="telephone" id="phone"
+                   ng-model="user.phone" />
+        </div>
 
-    <button ng-click="submit()">Submit</button>
+        <button class="btn-default" ng-click="submit()">Submit</button>
+    </div>
 </div>
