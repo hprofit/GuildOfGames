@@ -34,8 +34,9 @@ var styles = [
         BOWER_COMP_ROOT + '/angular/angular.js',
         BOWER_COMP_ROOT + '/angular-ui-router/release/angular-ui-router.js',
         BOWER_COMP_ROOT + '/angular-bootstrap/ui-bootstrap.js',
-        BOWER_COMP_ROOT + '/lodash/lodash.js',
-        BOWER_COMP_ROOT + '/restangular/dist/restangular.js'
+        BOWER_COMP_ROOT + '/angular-bootstrap/ui-bootstrap-tpls.js',
+        BOWER_COMP_ROOT + '/angular-sanitize/angular-sanitize.js',
+        BOWER_COMP_ROOT + '/lodash/lodash.js'
     ],
     templates = [
         TEMPLATES_ROOT + '/**/*.html'

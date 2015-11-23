@@ -13,10 +13,10 @@
 
                 service._signUp = function (parseUser, promise) {
                     parseUser.signUp(null, {
-                        success: function(user) {
+                        success: function (user) {
                             promise.resolve(user);
                         },
-                        error: function(user, error) {
+                        error: function (user, error) {
                             $log.error("Error: " + error.code + " " + error.message);
                             promise.resolve(null);
                         }
@@ -32,12 +32,22 @@
                     user.set("email", userParams.email);
                     user.set("firstName", userParams.firstName);
                     user.set("lastName", userParams.lastName);
-                    //user.set("userType", userParams.lastName);
+                    user.set("userType", userParams.lastName);
                     user.set("phone", userParams.phone);
 
                     service._signUp(user, deferred);
 
                     return deferred.promise;
+                };
+
+                service.getUsersByUsername = function (username, promise) {
+                    var query = new parse.Query(parse.User);
+                    query.equalTo("username", username);
+                    query.find({
+                        success: function (users) {
+                            promise.resolve(users.length !== 0);
+                        }
+                    });
                 };
 
                 return service;

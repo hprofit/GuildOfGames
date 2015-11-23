@@ -4,6 +4,8 @@
     var app = ng.module('guildOfGames.app', [
         // Other dependencies
         'ui.router',
+        'ui.bootstrap',
+        'dialogs',
 
         // Templates
         'guildOfGames.templates',
@@ -17,15 +19,16 @@
         'guildOfGames.controllers.user'
     ]);
 
-    app.controller('HeaderController', ['$rootScope', '$scope', '$state',
-        function ($rootScope, $scope, $state) {
+    app.controller('HeaderController', ['$rootScope', '$scope', '$state', 'currentUser',
+        function ($rootScope, $scope, $state, currentUser) {
+            $scope.user = currentUser;
         }
     ]);
 
     app.controller('HomeController', ['$scope', '$state', 'UserService', 'currentUser',
         function ($scope, $state, UserService, currentUser) {
             if (!currentUser) {
-                $state.go('app.user.create')
+                $state.go('app.user.create');
             }
         }
     ]);
@@ -33,15 +36,6 @@
     app.config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.when('', '/');
-
-            //// Restangular global config
-            //RestangularProvider.setBaseUrl('https://api.parse.com/1');
-            //
-            //RestangularProvider.setDefaultHeaders({
-            //    "X-Parse-Application-Id": "VS6qVTDjXnCfXoME3OBRPzOYCsb4r3DlXNtwzYf2",
-            //    "X-Parse-REST-API-Key": "EVzQYQ7s4679CZNXwiU9d3kPmrxw1o8iiMQAZY6X",
-            //    "Content-Type": "application/json"
-            //});
 
             $stateProvider
                 .state('app', {

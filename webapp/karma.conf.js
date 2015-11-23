@@ -17,8 +17,9 @@ module.exports = function (config) {
             BOWER_COMP_ROOT + 'angular-mocks/angular-mocks.js',
             BOWER_COMP_ROOT + 'angular-ui-router/release/angular-ui-router.js',
             BOWER_COMP_ROOT + 'angular-bootstrap/ui-bootstrap.js',
+            BOWER_COMP_ROOT + 'angular-bootstrap/ui-bootstrap-tpls.js',
+            BOWER_COMP_ROOT + 'angular-sanitize/angular-sanitize.js',
             BOWER_COMP_ROOT + 'lodash/lodash.js',
-            BOWER_COMP_ROOT + '/restangular/dist/restangular.js',
 
             DIST_ROOT + 'templates/guildOfGames-templates.js',
 

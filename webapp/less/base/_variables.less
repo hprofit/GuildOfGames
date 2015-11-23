@@ -2,10 +2,13 @@
 @theme-dark: #333333;
 @theme-main-fade: #666666;
 @theme-main: #777777;
-@theme-light: #CCCCCC;
+@theme-light: #f4f4f4;
 
 @theme-highlight: #8EAEC9;
 @theme-highlight-dark: #2B7FC4;
+
+@theme-blue: #2d7dc2;
+@theme-green: #2dc272;
 
 
 // Media Queries
@@ -19,6 +22,12 @@
 @bootstrap-large: ~"(min-width: 1200px)";
 
 @default-font: sans-serif;
+
+.box-shadow(@a, @b, @c, @color) {
+  -webkit-box-shadow: @a @b @c @color;
+  -moz-box-shadow: @a @b @c @color;
+  box-shadow: @a @b @c @color;
+}
 
 .make-gradient(@start, @end) {
   background-image: -ms-linear-gradient(top, @start 0%, @end 100%);
@@ -47,9 +56,9 @@
 
 .common-container {
   padding: 30px;
-  background-color: @theme-darkest;
+  background-color: @theme-light;
   border-radius: 25px;
-  box-shadow: 0 0 20px black;
+  .box-shadow(0, 0, 20px, black);
   flex: 1 0 0;
   flex-direction: column;
   justify-content: space-around;
