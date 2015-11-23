@@ -3,7 +3,9 @@
     <div class="guild-display">
         <ul class="guild-list">
             <li ng-repeat="guild in guilds">
-                {{guild.guildName}}
+                <a ui-sref="app.guild({ guildId: guild.id })">
+                    {{guild.guildName}}
+                </a>
             </li>
         </ul>
     </div>

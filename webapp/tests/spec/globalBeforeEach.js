@@ -30,6 +30,8 @@ beforeEach(function () {
             };
             this.equalTo = function (a, b) {
             };
+            this.get = function (a, b) {
+            };
         }
     };
 

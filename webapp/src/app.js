@@ -17,25 +17,31 @@
         // Directives
 
         // Controllers
-        'guildOfGames.controllers.user'
+        'guildOfGames.controllers.user',
+        'guildOfGames.controllers.guild.dashboard'
     ]);
 
-    app.controller('HeaderController', ['$rootScope', '$scope', '$state', 'UserService', 'currentUser',
-        function ($rootScope, $scope, $state, UserService, currentUser) {
-            $scope.user = currentUser;
+    app.controller('HeaderController', ['$rootScope', '$scope', '$window', '$state', 'UserService', 'currentUser',
+        function ($rootScope, $scope, $window, $state, UserService, currentUser) {
+            $scope.user = currentUser.id === 0 ? null : currentUser;
             $scope.userParams = {
                 username: '',
                 password: ''
             };
-            console.log($scope.user);
-
 
             $scope.logout = function () {
                 UserService.logout();
+                $window.location.reload();
             };
 
             $scope.handleLogin = function(response) {
-                $state.go('app');
+                // TODO: 101 is a tight coupling with Parse's error codes
+                if (response === 101) {
+                    $scope.loginError = true;
+                }
+                else {
+                    $state.go('app', $state.params, {reload: true});
+                }
             };
 
             $scope.login = function () {
@@ -51,7 +57,7 @@
 
     app.controller('HomeController', ['$scope', '$state', 'UserService', 'currentUser', 'guilds',
         function ($scope, $state, UserService, currentUser, guilds) {
-            if (!currentUser) {
+            if (currentUser.id === 0) {
                 $state.go('app.user.create');
             }
 

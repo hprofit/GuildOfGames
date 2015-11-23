@@ -20,7 +20,7 @@
                         },
                         error: function(user, error) {
                             $log.error("Error: " + error.code + " " + error.message);
-                            promise.resolve(null);
+                            promise.resolve(error.code);
                         }
                     });
                 };
@@ -34,7 +34,7 @@
                 };
 
                 service.getCurrentUser = function () {
-                    return parse.User.current();
+                    return new User(parse.User.current());
                 };
 
                 service._signUp = function (parseUser, promise) {
@@ -103,6 +103,29 @@
                     query.limit(10);
 
                     service._findGuilds(query, deferred);
+
+                    return deferred.promise;
+                };
+
+
+                service._getGuildById = function(query, guildId, promise) {
+                    query.get(guildId, {
+                        success: function(guild) {
+                            promise.resolve(new Guild(guild));
+                        },
+                        error: function(object, error) {
+                            $log.error("Error: " + error.code + " " + error.message);
+                            promise.resolve(null);
+                        }
+                    });
+                };
+
+                service.getGuild = function(guildId) {
+                    var deferred = $q.defer(),
+                        ParseGuild = parse.Object.extend("Guild"),
+                        query = new parse.Query(ParseGuild);
+
+                    service._getGuildById(query, guildId, deferred);
 
                     return deferred.promise;
                 };

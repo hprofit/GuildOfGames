@@ -45,6 +45,9 @@
                                ng-model="userParams.password"
                                required />
                     </li>
+                    <li ng-if="loginError" class="error">
+                        Invalid username or password.
+                    </li>
                     <li>
                         <button class="btn-default" ng-click="login()">Log In</button>
                     </li>

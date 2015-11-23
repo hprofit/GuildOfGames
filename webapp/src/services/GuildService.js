@@ -11,6 +11,10 @@
                     return ParseService.getGuilds();
                 };
 
+                service.getGuild = function(guildId) {
+                    return ParseService.getGuild(guildId);
+                };
+
                 return service;
             }
         ]);

@@ -30,7 +30,7 @@ describe("Parse Service", function () {
             password: 'testing123'
         };
 
-        spyOn(ParseService, '_login').and.callFake(function(pu, up, d) {
+        spyOn(ParseService, '_login').and.callFake(function (pu, up, d) {
             expect(pu).toBe(Parse.User);
             expect(up).toBe(params);
             expect(d).toBeDefined();
@@ -80,7 +80,7 @@ describe("Parse Service", function () {
                 }
             },
             error = {
-                code: 123,
+                code: 101,
                 message: 'error'
             };
 
@@ -90,10 +90,10 @@ describe("Parse Service", function () {
             c.error(null, error);
         });
         spyOn(promise, 'resolve').and.callFake(function (data) {
-            expect(data).toBe(null);
+            expect(data).toBe(error.code);
         });
         spyOn($log, 'error').and.callFake(function (msg) {
-            expect(msg).toBe('Error: 123 error');
+            expect(msg).toBe('Error: 101 error');
         });
 
         ParseService._login(parseUser, userParams, promise);
@@ -104,21 +104,15 @@ describe("Parse Service", function () {
     });
 
 
-
-
-
-
     it("should call parse.User.current for the current user", function () {
-        var parseUser = {
-            id: 123
-        };
+        var parseUser = new Parse.User();
         spyOn(parse.User, 'current').and.callFake(function () {
             return parseUser;
         });
 
         var user = ParseService.getCurrentUser();
 
-        expect(user).toBe(parseUser);
+        expect(user instanceof User).toBeTruthy();
         expect(parse.User.current).toHaveBeenCalled();
     });
 
@@ -316,5 +310,90 @@ describe("Parse Service", function () {
         expect(query.descending).toHaveBeenCalled();
         expect(query.limit).toHaveBeenCalled();
         expect(ParseService._findGuilds).toHaveBeenCalled();
+    });
+
+
+    it("should call query.find and handle a success for guild retrieval", function () {
+        var query = new Parse.Query(),
+            guildId = 'ABC123',
+            guild = {
+                name: 'test',
+                get: function (property) {
+                }
+            },
+            promise = {
+                resolve: function () {
+                }
+            };
+
+        spyOn(query, 'get').and.callFake(function (id, obj) {
+            expect(id).toBe(guildId);
+            obj.success(guild);
+        });
+        spyOn(promise, 'resolve').and.callFake(function (data) {
+            expect(data instanceof Guild).toBeTruthy();
+        });
+
+        ParseService._getGuildById(query, guildId, promise);
+
+        expect(query.get).toHaveBeenCalled();
+        expect(promise.resolve).toHaveBeenCalled();
+    });
+
+    it("should call query.find and handle an error for guild retrieval", function () {
+        var query = new Parse.Query(),
+            guildId = 'ABC123',
+            guild = {
+                name: 'test', get: function () {
+                }
+            },
+            promise = {
+                resolve: function () {
+                }
+            },
+            error = {
+                code: 123,
+                message: 'error'
+            };
+
+        spyOn(query, 'get').and.callFake(function (id, obj) {
+            expect(id).toBe(guildId);
+            obj.error(guild, error);
+        });
+        spyOn(promise, 'resolve').and.callFake(function (data) {
+            expect(data).toBe(null);
+        });
+        spyOn($log, 'error').and.callFake(function (msg) {
+            expect(msg).toBe('Error: 123 error');
+        });
+
+        ParseService._getGuildById(query, guildId, promise);
+
+        expect(query.get).toHaveBeenCalled();
+        expect(promise.resolve).toHaveBeenCalled();
+        expect($log.error).toHaveBeenCalled();
+    });
+
+    it("should retrieve specific Guild object", function () {
+        var query = new Parse.Query(),
+            guildId = 'ABC123';
+
+        spyOn(parse.Object, 'extend').and.callThrough();
+        spyOn(parse, 'Query').and.callFake(function (obj) {
+            expect(obj).toBeDefined();
+
+            return query;
+        });
+        spyOn(ParseService, '_getGuildById').and.callFake(function (queryObj, id, promise) {
+            expect(queryObj).toBe(query);
+            expect(id).toBe(guildId);
+            expect(promise).toBeDefined();
+        });
+
+        ParseService.getGuild(guildId);
+
+        expect(parse.Object.extend).toHaveBeenCalled();
+        expect(parse.Query).toHaveBeenCalled();
+        expect(ParseService._getGuildById).toHaveBeenCalled();
     });
 });

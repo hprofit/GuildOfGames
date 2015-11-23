@@ -1,0 +1,18 @@
+<div class="guild-dashboard">
+
+    <div class="guild-display-box">
+        <div class="title-row">
+            <h2 class="header">{{selectedGuild.guildName}}</h2>
+            <img class="guild-image" ng-src="{{selectedGuild.guildImage}}" />
+        </div>
+
+        <label>{{selectedGuild.description}}</label>
+
+        <label>Tags:</label>
+        <div class="tag-list">
+            <span ng-repeat="tag in selectedGuild.tags">
+                {{tag.name}}
+            </span>
+        </div>
+    </div>
+</div>

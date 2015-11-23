@@ -1,0 +1,39 @@
+div.guild-dashboard {
+  .common-container;
+
+  div.guild-display-box {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 500px;
+    margin: auto;
+    border-radius: 25px;
+    border: 2px solid @theme-main;
+    padding: 30px;
+
+    div.title-row {
+      justify-content: space-between;
+
+      h2.header {
+        padding-top: 10px;
+        text-align: center;
+      }
+
+      img.guild-image {
+        height: 50px;
+        width: 50px;
+      }
+    }
+
+    div.tag-list {
+      span {
+        min-width: 50px;
+        padding: 4px 8px;
+        background-color: @theme-green;
+        color: @theme-light;
+        border-radius: 10px;
+        margin-right: 5px;
+        text-align: center;
+      }
+    }
+  }
+}

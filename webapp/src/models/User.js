@@ -6,7 +6,9 @@
         .factory('User', [
             function () {
                 function User(params) {
-                    params = params || {};
+                    params = params || {
+                            get: function(property) {}
+                        };
 
                     this.id = params.id || 0;
                     this.createdAt = params.createdAt || {};

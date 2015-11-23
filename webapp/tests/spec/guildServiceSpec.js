@@ -26,4 +26,17 @@ describe("Guild Service", function () {
         expect(result).toBe(guilds);
         expect(ParseService.getGuilds).toHaveBeenCalled();
     });
+
+
+    it("should call parseService and retrieve a specific Guild", function () {
+        var guild = {};
+        spyOn(ParseService, 'getGuild').and.callFake(function () {
+            return guild;
+        });
+
+        var result = GuildService.getGuild(123);
+
+        expect(result).toBe(guild);
+        expect(ParseService.getGuild).toHaveBeenCalled();
+    });
 });
