@@ -1,11 +1,37 @@
 (function (ng) {
     'use strict';
     ng.module('guildOfGames.services.parseService', [
-        'guildOfGames.parse'
+        'guildOfGames.parse',
+        'guildOfGames.models.guild',
+        'guildOfGames.models.user'
     ])
-        .factory('ParseService', ['$log', '$q', 'parse',
-            function ($log, $q, parse) {
+        .factory('ParseService', ['$log', '$q', 'parse', 'User', 'Guild',
+            function ($log, $q, parse, User, Guild) {
                 var service = {};
+
+                service.logout = function () {
+                    parse.User.logOut();
+                };
+
+                service._login = function (parseUser, userParams, promise) {
+                    parseUser.logIn(userParams.username, userParams.password, {
+                        success: function(user) {
+                            promise.resolve(new User(user));
+                        },
+                        error: function(user, error) {
+                            $log.error("Error: " + error.code + " " + error.message);
+                            promise.resolve(null);
+                        }
+                    });
+                };
+
+                service.login = function(userParams) {
+                    var deferred = $q.defer();
+
+                    service._login(parse.User, userParams, deferred);
+
+                    return deferred.promise;
+                };
 
                 service.getCurrentUser = function () {
                     return parse.User.current();
@@ -33,7 +59,7 @@
                     user.set("firstName", userParams.firstName);
                     user.set("lastName", userParams.lastName);
                     user.set("userType", userParams.lastName);
-                    user.set("phone", userParams.phone);
+                    user.set("phoneNumber", userParams.phoneNumber);
 
                     service._signUp(user, deferred);
 
@@ -48,6 +74,37 @@
                             promise.resolve(users.length !== 0);
                         }
                     });
+                };
+
+
+
+
+                service._findGuilds = function (query, promise) {
+                    query.find({
+                        success: function (guilds) {
+                            promise.resolve(guilds.map(Guild.build));
+                        },
+                        error: function (guilds, error) {
+                            $log.error("Error: " + error.code + " " + error.message);
+                            promise.resolve(null);
+                        }
+                    });
+                };
+
+                service.getGuilds = function () {
+                    var deferred = $q.defer(),
+                        ParseGuild = parse.Object.extend("Guild"),
+                        query = new parse.Query(ParseGuild);
+
+                    // Retrieve the most recent ones
+                    query.descending("updatedAt");
+
+                    // Only retrieve the last ten
+                    query.limit(10);
+
+                    service._findGuilds(query, deferred);
+
+                    return deferred.promise;
                 };
 
                 return service;

@@ -84,6 +84,14 @@
                     return ParseService.createUser(user);
                 };
 
+                service.logout = function(){
+                    return ParseService.logout();
+                };
+
+                service.login = function(userParams){
+                    return ParseService.login(userParams);
+                };
+
                 return service;
             }
         ]);

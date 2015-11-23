@@ -15,7 +15,7 @@
                     firstName: '',
                     lastName: '',
                     email: '',
-                    phone: ''
+                    phoneNumber: ''
                 };
                 $scope.passwordMatch = '';
 

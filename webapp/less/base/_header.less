@@ -56,6 +56,10 @@ header.app-header {
         padding: 0;
         background-color: @theme-light;
 
+        &.login {
+          min-width: 240px;
+        }
+
         ul {
           list-style-type: none;
           padding: 10px 10px 0;
@@ -63,6 +67,17 @@ header.app-header {
           li {
             a {
               cursor: pointer;
+            }
+          }
+
+          &.login-options {
+            li {
+              display: flex;
+              justify-content: space-between;
+
+              label.form-label {
+                padding: 4px 0;
+              }
             }
           }
         }
@@ -88,6 +103,8 @@ header.app-header {
           padding: 8px 10px;
           border-top-left-radius: 3px;
           border-top-right-radius: 3px;
+          height: 32px;
+
           .header-options {
             list-style-type: none;
             padding: 0;

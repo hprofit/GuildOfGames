@@ -27,7 +27,7 @@ describe("User Service", function () {
         expect(ParseService.getCurrentUser).toHaveBeenCalled();
     });
 
-    it("should validate that two given passwords match", function() {
+    it("should validate that two given passwords match", function () {
         var result = UserService._validatePasswordsMatch('first', 'first');
 
         expect(result).not.toBeDefined();
@@ -38,7 +38,7 @@ describe("User Service", function () {
         expect(result).toBe('Both passwords must match!');
     });
 
-    it("should test to see if a string contains characters from a regex", function() {
+    it("should test to see if a string contains characters from a regex", function () {
         var regex = /([0-9])+/g;
 
         spyOn(_, 'isArray').and.callThrough();
@@ -84,7 +84,7 @@ describe("User Service", function () {
         expect(UserService._isRegexInString.calls.count()).toBe(3);
     });
 
-    it("should validate a password's length", function() {
+    it("should validate a password's length", function () {
         var result = UserService._validatePasswordLength('testtest');
 
         expect(result).not.toBeDefined();
@@ -95,7 +95,7 @@ describe("User Service", function () {
         expect(result).toBe('Password must contain at least 8 characters!');
     });
 
-    it("should test for a valid first and last name", function() {
+    it("should test for a valid first and last name", function () {
         var first = 'First', last = 'Last';
 
         var result = UserService._validateFirstAndLastName(first, last);
@@ -118,7 +118,7 @@ describe("User Service", function () {
         expect(result).toBe('You must enter a first and last name!');
     });
 
-    it("should test for a valid email", function() {
+    it("should test for a valid email", function () {
         var email = "test@mail.com";
 
         var result = UserService._validateEmail(email);
@@ -194,5 +194,31 @@ describe("User Service", function () {
 
         expect(user).toBe(parseUser);
         expect(ParseService.createUser).toHaveBeenCalled();
+    });
+
+    it("should call parseService to log the user out", function () {
+        spyOn(ParseService, 'logout').and.callFake(function () {
+            return null;
+        });
+
+        var user = UserService.logout();
+
+        expect(user).toBe(null);
+        expect(ParseService.logout).toHaveBeenCalled();
+    });
+
+    it("should call parseService to log the user in", function () {
+        spyOn(ParseService, 'login').and.callFake(function () {
+            return {
+                then: function (fn) {
+                    fn({});
+                }
+            };
+        });
+
+        var promise = UserService.login();
+
+        expect(promise.then).toBeDefined();
+        expect(ParseService.login).toHaveBeenCalled();
     });
 });
