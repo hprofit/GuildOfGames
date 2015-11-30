@@ -4,7 +4,7 @@ describe('User Create Controller', function () {
     var scope, $state, $dialogs, UserService;
 
     beforeEach(function () {
-        module('guildOfGames.controllers.user');
+        module('guildOfGames.controllers.user.create');
 
         inject(function ($controller, $rootScope, _$state_, _$dialogs_, _UserService_, $injector) {
             scope = $rootScope.$new();

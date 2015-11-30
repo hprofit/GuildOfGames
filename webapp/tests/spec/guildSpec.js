@@ -37,4 +37,9 @@ describe("Guild Model", function () {
         expect(guild.tags).toEqual(defaultOptions.tags);
     });
 
+    it("should build a new Guild", function () {
+        var guild = Guild.build(defaultOptions);
+
+        expect(guild instanceof Guild).toBeTruthy();
+    });
 });

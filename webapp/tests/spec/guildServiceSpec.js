@@ -17,26 +17,55 @@ describe("Guild Service", function () {
 
     it("should call parseService and retrieve a list of Guilds", function () {
         var guilds = [{}];
-        spyOn(ParseService, 'getGuilds').and.callFake(function () {
+        spyOn(ParseService, 'getTenMostRecentlyUpdatedGuilds').and.callFake(function () {
             return guilds;
         });
 
-        var result = GuildService.getGuilds();
+        var result = GuildService.getTenMostRecentlyUpdatedGuilds();
 
         expect(result).toBe(guilds);
-        expect(ParseService.getGuilds).toHaveBeenCalled();
+        expect(ParseService.getTenMostRecentlyUpdatedGuilds).toHaveBeenCalled();
     });
 
-
     it("should call parseService and retrieve a specific Guild", function () {
-        var guild = {};
-        spyOn(ParseService, 'getGuild').and.callFake(function () {
+        var guild = {},
+            guildId = 123;
+        spyOn(ParseService, 'getGuild').and.callFake(function (id) {
+            expect(id).toBe(guildId);
             return guild;
         });
 
-        var result = GuildService.getGuild(123);
+        var result = GuildService.getGuild(guildId);
 
         expect(result).toBe(guild);
         expect(ParseService.getGuild).toHaveBeenCalled();
+    });
+
+    it("should call parseService and retrieve a list of Guilds that a member belongs to", function () {
+        var guilds = [{}, {}],
+            userId = 123;
+        spyOn(ParseService, 'getGuildsForUser').and.callFake(function (id) {
+            expect(id).toBe(userId);
+            return guilds;
+        });
+
+        var result = GuildService.getGuildsForUser(userId);
+
+        expect(result).toBe(guilds);
+        expect(ParseService.getGuildsForUser).toHaveBeenCalled();
+    });
+
+    it("should call parseService and retrieve a list of Users that are in a Guild's members", function () {
+        var members = [{}, {}],
+            guild = {};
+        spyOn(ParseService, 'getGuildMembers').and.callFake(function (g) {
+            expect(g).toBe(guild);
+            return members;
+        });
+
+        var result = GuildService.getGuildMembers(guild);
+
+        expect(result).toBe(members);
+        expect(ParseService.getGuildMembers).toHaveBeenCalled();
     });
 });

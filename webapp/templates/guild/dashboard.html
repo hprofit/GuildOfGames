@@ -6,13 +6,26 @@
             <img class="guild-image" ng-src="{{selectedGuild.guildImage}}" />
         </div>
 
-        <label>{{selectedGuild.description}}</label>
+        <div class="guild-description">
+            <label>{{selectedGuild.description}}</label>
+        </div>
 
-        <label>Tags:</label>
-        <div class="tag-list">
-            <span ng-repeat="tag in selectedGuild.tags">
-                {{tag.name}}
-            </span>
+        <div class="guild-tags">
+            <label>Tags:</label>
+            <div class="tag-list">
+                <span ng-repeat="tag in selectedGuild.tags">
+                    {{tag.name}}
+                </span>
+            </div>
+        </div>
+
+        <div class="guild-members">
+            <label>Members:</label>
+            <div class="member-list">
+                <span ng-repeat="member in guildMembers">
+                    {{member.username}} - {{member.getFullName()}}
+                </span>
+            </div>
         </div>
     </div>
 </div>

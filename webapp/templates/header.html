@@ -16,42 +16,48 @@
         <span dropdown>
             <span class="user actionable" dropdown-toggle></span>
             <div class="dropdown-menu" ng-class="{'login': !user}" role="menu">
-                <div class="menu-header">
+                <div class="menu-header" ng-class="{'enabled':user}" ng-click="goToUserProfile()">
                     <ul class="header-options">
                         <li ng-if="user">Welcome, {{user.username}}!</li>
                         <li ng-if="!user">Welcome!</li>
                     </ul>
                 </div>
                 <ul class="menu-options" ng-if="user">
+                    <li class="user-profile" >
+                        <a ng-click="goToUserProfile()">My Profile</a>
+                    </li>
+                    <li class="create-guild" >
+                        <a ng-click="goToGuildCreate()">Create Guild</a>
+                    </li>
                     <li class="logout" >
                         <a ng-click="logout()">Log Out</a>
                     </li>
                 </ul>
-
-                <ul class="menu-options login-options" ng-if="!user"
-                    ng-click="cancelClose($event)"
-                    ng-keypress="cancelClose($event)">
-                    <li>
-                        <label class="form-label">Username:</label>
-                        <input class="form-control"
-                               type="text" id="username"
-                               ng-model="userParams.username"
-                               required />
-                    </li>
-                    <li>
-                        <label class="form-label">Password:</label>
-                        <input class="form-control"
-                               type="password" id="password"
-                               ng-model="userParams.password"
-                               required />
-                    </li>
-                    <li ng-if="loginError" class="error">
-                        Invalid username or password.
-                    </li>
-                    <li>
-                        <button class="btn-default" ng-click="login()">Log In</button>
-                    </li>
-                </ul>
+                <div class="login-options" ng-if="!user">
+                    <ul class="menu-options login-form"
+                        ng-click="cancelClose($event)"
+                        ng-keypress="cancelClose($event)">
+                        <li>
+                            <label class="form-label">Username:</label>
+                            <input class="form-control"
+                                   type="text" id="username"
+                                   ng-model="userParams.username"
+                                   required />
+                        </li>
+                        <li>
+                            <label class="form-label">Password:</label>
+                            <input class="form-control"
+                                   type="password" id="password"
+                                   ng-model="userParams.password"
+                                   required />
+                        </li>
+                        <li ng-if="loginError" class="error">
+                            Invalid username or password.
+                        </li>
+                    </ul>
+                    <button class="btn-default" ng-disabled="userParams.username==='' || userParams.password===''" ng-click="login($event)">Log In</button>
+                    <button class="btn-default" ng-click="goToUserCreate()">Sign Up</button>
+                </div>
             </div>
         </span>
     </div>

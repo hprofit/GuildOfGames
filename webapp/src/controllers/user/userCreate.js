@@ -1,7 +1,7 @@
 (function (ng) {
     'use strict';
 
-    ng.module('guildOfGames.controllers.user', [
+    ng.module('guildOfGames.controllers.user.create', [
         'ui.router',
         'ui.bootstrap',
         'dialogs',
@@ -20,7 +20,7 @@
                 $scope.passwordMatch = '';
 
                 $scope.handleCreateUser = function(response) {
-                    $state.go('app');
+                    $state.go('app', {}, {reload: true});
                 };
 
                 $scope.handleValidateUserName = function(usernameExists) {

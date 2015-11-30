@@ -7,12 +7,20 @@
             function ($log, $q, ParseService) {
                 var service = {};
 
-                service.getGuilds = function() {
-                    return ParseService.getGuilds();
+                service.getTenMostRecentlyUpdatedGuilds = function() {
+                    return ParseService.getTenMostRecentlyUpdatedGuilds();
                 };
 
                 service.getGuild = function(guildId) {
                     return ParseService.getGuild(guildId);
+                };
+
+                service.getGuildsForUser = function(user) {
+                    return ParseService.getGuildsForUser(user);
+                };
+
+                service.getGuildMembers = function(guild) {
+                    return ParseService.getGuildMembers(guild);
                 };
 
                 return service;

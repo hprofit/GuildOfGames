@@ -1,0 +1,21 @@
+<div class="user-dashboard">
+
+    <div class="user-display-box">
+        <div class="title-row">
+            <div class="names">
+                <h2 class="real-name">{{user.getFullName()}}</h2>
+                <h4 class="user-name">{{user.username}}</h4>
+            </div>
+            <img class="user-image" ng-src="{{user.profilePicture || '../../images/users-user-icon.png'}}" />
+        </div>
+
+        <div class="guild-list-container">
+            <label>Guilds:</label>
+            <div class="guild-list">
+                <span ng-repeat="guild in guilds" ng-click="goToGuild(guild.id)">
+                    {{guild.guildName}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

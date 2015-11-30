@@ -21,3 +21,48 @@ div.user-create {
     }
   }
 }
+
+div.user-dashboard {
+  .common-container;
+
+  div.user-display-box {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 500px;
+    margin: auto;
+    border-radius: 25px;
+    border: 2px solid @theme-main;
+    padding: 30px;
+
+    div.title-row {
+      justify-content: space-between;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid @theme-blue;
+
+      div.names {
+        flex-direction: column;
+
+        img.user-image {
+          height: 50px;
+          width: 50px;
+        }
+      }
+    }
+    div.guild-list-container {
+      flex-direction: column;
+
+      div.guild-list {
+
+        span {
+          cursor: pointer;
+          background-color: @theme-blue;
+          margin: 0;
+          padding: 4px 8px;
+          border-radius: 10px;
+          color: @theme-light;
+        }
+      }
+    }
+  }
+}

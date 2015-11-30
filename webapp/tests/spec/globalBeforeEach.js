@@ -18,6 +18,8 @@ beforeEach(function () {
         Object: {
             extend: function (a) {
                 return {};
+            },
+            save: function () {
             }
         },
         Query: function () {

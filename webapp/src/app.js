@@ -17,52 +17,13 @@
         // Directives
 
         // Controllers
-        'guildOfGames.controllers.user',
+        'guildOfGames.controllers.header',
+        'guildOfGames.controllers.home',
+
+        'guildOfGames.controllers.user.dashboard',
+        'guildOfGames.controllers.user.create',
+
         'guildOfGames.controllers.guild.dashboard'
-    ]);
-
-    app.controller('HeaderController', ['$rootScope', '$scope', '$window', '$state', 'UserService', 'currentUser',
-        function ($rootScope, $scope, $window, $state, UserService, currentUser) {
-            $scope.user = currentUser.id === 0 ? null : currentUser;
-            $scope.userParams = {
-                username: '',
-                password: ''
-            };
-
-            $scope.logout = function () {
-                UserService.logout();
-                $window.location.reload();
-            };
-
-            $scope.handleLogin = function(response) {
-                // TODO: 101 is a tight coupling with Parse's error codes
-                if (response === 101) {
-                    $scope.loginError = true;
-                }
-                else {
-                    $state.go('app', $state.params, {reload: true});
-                }
-            };
-
-            $scope.login = function () {
-                UserService.login($scope.userParams)
-                    .then($scope.handleLogin);
-            };
-
-            $scope.cancelClose = function(event) {
-                event.stopPropagation();
-            }
-        }
-    ]);
-
-    app.controller('HomeController', ['$scope', '$state', 'UserService', 'currentUser', 'guilds',
-        function ($scope, $state, UserService, currentUser, guilds) {
-            if (currentUser.id === 0) {
-                $state.go('app.user.create');
-            }
-
-            $scope.guilds = guilds;
-        }
     ]);
 
     app.config(['$stateProvider', '$urlRouterProvider',
@@ -77,7 +38,7 @@
                             return UserService.getCurrentUser();
                         }],
                         guilds: ['GuildService', function (GuildService) {
-                            return GuildService.getGuilds();
+                            return GuildService.getTenMostRecentlyUpdatedGuilds();
                         }]
                     },
                     views: {
@@ -94,5 +55,53 @@
                 .state('app.user', {url: 'user/'});
         }
     ]);
+
+    app.run(['$rootScope', '$window', '$log', '$state', 'UserService',
+        function ($rootScope, $window, $log, $state, UserService) {
+            var isRouteException = function (stateName) {
+                /**
+                 * These are routes the user can navigate to without having signed in
+                 */
+                var routeExecptions = [
+                    "app",
+                    "app.user.create"
+                ];
+
+                return _.findIndex(routeExecptions, function (exception) {
+                        return exception === stateName;
+                    }) !== -1;
+            };
+
+            $rootScope.$watch('error', function (newError, oldError) {
+                if (newError === oldError) {
+                    return;
+                }
+                if (newError.code === 209) {//} && $state.current.name !== '') {
+                    $state.go('app', {}, {reload: true});
+                }
+            });
+
+            $rootScope.$on('$stateChangeStart',
+                function (event, toState, toParams, fromState, fromParams) {
+                    if (UserService.getCurrentUser().id === 0 && !isRouteException((toState.name))) {
+                        event.preventDefault();
+                        $state.go('app.user.create');
+                    }
+                }
+            );
+
+            $rootScope.$on('$stateChangeError',
+                function (event, toState, toParams, fromState, fromParams, error) {
+                    $log.error('StateChangeError occurred: fromState:' + fromState +
+                        'toState: ' + toState, error);
+                }
+            );
+
+            $rootScope.$on('$stateNotFound',
+                function (event, unfoundState, fromState, fromParams) {
+                    $log.error("StateNotFound Error: ", unfoundState);
+                }
+            );
+        }]);
 })(angular);
 

@@ -60,7 +60,19 @@ module.exports = function (config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress', 'coverage'],
+        reporters: [
+            'progress',
+            'coverage'
+            //'spec'
+        ],
+
+        //plugins: [
+        //    "karma-spec-reporter",
+        //    "karma-ng-html2js-preprocessor",
+        //    "karma-coverage",
+        //    "karma-jasmine",
+        //    "karma-phantomjs-launcher"
+        //],
 
         htmlReporter: {
             outputDir: 'tests/karma_html',

@@ -2,12 +2,14 @@
     'use strict';
 
     ng.module('guildOfGames.models.user', [
+        'guildOfGames.models.guild'
     ])
-        .factory('User', [
-            function () {
+        .factory('User', ['Guild',
+            function (Guild) {
                 function User(params) {
                     params = params || {
-                            get: function(property) {}
+                            get: function (property) {
+                            }
                         };
 
                     this.id = params.id || 0;
@@ -20,8 +22,20 @@
                     this.username = params.get('username') || '';
                     this.phoneNumber = params.get('phoneNumber') || '';
                     this.guilds = params.get('guilds') || [];
+
                     this.profilePicture = params.get('profilePicture') || '';
+                    this.profilePicture = _.isFunction(this.profilePicture.url) ? this.profilePicture.url() : this.profilePicture;
+
+                    this.parseObj = params;
                 }
+
+                User.build = function (params) {
+                    return new User(params);
+                };
+
+                User.prototype.getFullName = function() {
+                    return this.lastName + ", " + this.firstName;
+                };
 
                 return User;
             }

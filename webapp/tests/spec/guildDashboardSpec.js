@@ -2,7 +2,7 @@ describe('Guild Dashboard Controller', function () {
     'use strict';
 
     var scope, $state, $dialogs, UserService, GuildService,
-        selectedGuild;
+        selectedGuild, guildMembers;
 
     beforeEach(function () {
         module('guildOfGames.controllers.guild.dashboard');
@@ -15,6 +15,7 @@ describe('Guild Dashboard Controller', function () {
             UserService =  $injector.get('UserService');
 
             selectedGuild = {};
+            guildMembers = [];
 
             $controller('GuildDashboardController', {
                 $scope: scope,
@@ -22,7 +23,8 @@ describe('Guild Dashboard Controller', function () {
                 $dialogs: $dialogs,
                 UserService: UserService,
                 GuildService: GuildService,
-                selectedGuild: selectedGuild
+                selectedGuild: selectedGuild,
+                guildMembers: guildMembers
             });
         });
 
@@ -30,6 +32,7 @@ describe('Guild Dashboard Controller', function () {
     });
 
     it("should have certain objects on the scope", function() {
-        expect(scope.selectedGuild).toBeDefined()
+        expect(scope.selectedGuild).toBeDefined();
+        expect(scope.guildMembers).toBeDefined();
     });
 });

@@ -1,13 +1,13 @@
 (function (ng) {
     'use strict';
 
-    ng.module('guildOfGames.models.guild', [
-    ])
+    ng.module('guildOfGames.models.guild', [])
         .factory('Guild', [
             function () {
                 function Guild(params) {
                     params = params || {
-                            get: function(property) {}
+                            get: function (property) {
+                            }
                         };
 
                     this.id = params.id || 0;
@@ -15,11 +15,14 @@
                     this.updatedAt = params.updatedAt || {};
 
                     this.description = params.get('description') || '';
-                    this.guildImage = params.get('guildImage') || '';
-                    this.guildImage = _.isFunction(this.guildImage.url) ? this.guildImage.url() : this.guildImage;
                     this.guildName = params.get('guildName') || '';
                     this.members = params.get('members') || [];
                     this.tags = params.get('tags') || [{name: 'ios'}, {name: 'apple'}];
+
+                    this.guildImage = params.get('guildImage') || '';
+                    this.guildImage = _.isFunction(this.guildImage.url) ? this.guildImage.url() : this.guildImage;
+
+                    this.parseObj = params;
                 }
 
                 Guild.build = function (params) {
